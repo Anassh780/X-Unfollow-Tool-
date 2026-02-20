@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OpenClaw - Cinematic Hero</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff2929",
+                        "background-light": "#f8f5f5",
+                        "background-dark": "#070B10", // Deep ocean abyss
+                        "abyss-light": "#0F1A25",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'light-ray': 'light-ray 8s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
+                            '50%': { opacity: '1', transform: 'scale(1.1)' },
+                        },
+                        'light-ray': {
+                            '0%': { opacity: '0.2', transform: 'translateX(-5%) rotate(-15deg)' },
+                            '100%': { opacity: '0.5', transform: 'translateX(5%) rotate(-10deg)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scratch texture pattern */
+        .bg-scratches {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10 L40 40 M60 20 L30 50 M80 10 L50 40' stroke='%23ff2929' stroke-width='0.5' stroke-opacity='0.05' fill='none'/%3E%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 80 L50 50 M90 90 L60 60' stroke='%23ff2929' stroke-width='0.3' stroke-opacity='0.05' fill='none'/%3E%3C/svg%3E");
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+        }
+        
+        /* Particle effects */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: rise 10s infinite ease-in;
+        }
+        @keyframes rise {
+            0% { bottom: -10px; opacity: 0; transform: translateX(0); }
+            50% { opacity: 0.5; }
+            100% { bottom: 100%; opacity: 0; transform: translateX(20px); }
+        }
+        
+        .text-glow {
+            text-shadow: 0 0 30px rgba(255, 41, 41, 0.5), 0 0 10px rgba(255, 41, 41, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col relative overflow-hidden transition-colors duration-300">
+<!-- Background Elements -->
+<!-- Gradient Overlay simulating deep water depth -->
+<div class="absolute inset-0 z-0 bg-gradient-to-b from-abyss-light/30 to-background-dark pointer-events-none"></div>
+<!-- Light Rays from top -->
+<div class="absolute top-[-20%] left-[-10%] w-[120%] h-[80%] bg-gradient-to-b from-blue-400/10 via-transparent to-transparent rotate-[-12deg] blur-3xl z-0 animate-light-ray pointer-events-none"></div>
+<div class="absolute top-[-20%] right-[-10%] w-[80%] h-[70%] bg-gradient-to-b from-primary/5 via-transparent to-transparent rotate-[15deg] blur-3xl z-0 pointer-events-none"></div>
+<!-- Scratches Texture -->
+<div class="absolute inset-0 z-0 bg-scratches opacity-30 pointer-events-none"></div>
+<!-- Particles -->
+<div class="absolute inset-0 overflow-hidden z-0 pointer-events-none">
+<div class="particle w-1 h-1 left-[10%]" style="animation-delay: 0s;"></div>
+<div class="particle w-2 h-2 left-[20%]" style="animation-delay: 2s;"></div>
+<div class="particle w-1 h-1 left-[35%]" style="animation-delay: 4s;"></div>
+<div class="particle w-1.5 h-1.5 left-[50%]" style="animation-delay: 1s;"></div>
+<div class="particle w-2 h-2 left-[65%]" style="animation-delay: 6s;"></div>
+<div class="particle w-1 h-1 left-[80%]" style="animation-delay: 3s;"></div>
+<div class="particle w-1 h-1 left-[90%]" style="animation-delay: 5s;"></div>
+</div>
+<!-- Navigation -->
+<header class="relative z-50 w-full px-6 py-5 md:px-12 border-b border-white/5 backdrop-blur-sm">
+<div class="max-w-[1400px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="size-8 text-primary group-hover:drop-shadow-[0_0_8px_rgba(255,41,41,0.8)] transition-all duration-300">
+<span class="material-symbols-outlined text-3xl">cruelty_free</span>
+</div>
+<h2 class="text-white text-xl font-bold tracking-tight uppercase">OpenClaw</h2>
+</div>
+<!-- Desktop Nav -->
+<nav class="hidden md:flex items-center gap-10">
+<a class="text-slate-300 hover:text-primary hover:drop-shadow-[0_0_5px_rgba(255,41,41,0.6)] text-sm font-medium tracking-wide transition-colors uppercase" href="#">Home</a>
+<a class="text-slate-300 hover:text-primary hover:drop-shadow-[0_0_5px_rgba(255,41,41,0.6)] text-sm font-medium tracking-wide transition-colors uppercase" href="#">Features</a>
+<a class="text-slate-300 hover:text-primary hover:drop-shadow-[0_0_5px_rgba(255,41,41,0.6)] text-sm font-medium tracking-wide transition-colors uppercase" href="#">Platform</a>
+<a class="text-slate-300 hover:text-primary hover:drop-shadow-[0_0_5px_rgba(255,41,41,0.6)] text-sm font-medium tracking-wide transition-colors uppercase" href="#">Gallery</a>
+</nav>
+<!-- Mobile Menu Icon -->
+<button class="md:hidden text-white hover:text-primary transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="hidden md:flex">
+<button class="bg-white/5 hover:bg-primary/20 hover:text-primary hover:border-primary/50 text-white border border-white/10 px-5 py-2 rounded text-sm font-bold uppercase tracking-wider transition-all duration-300">
+                    Sign In
+                </button>
+</div>
+</div>
+</header>
+<!-- Main Hero Content -->
+<main class="relative z-10 flex-grow flex flex-col justify-center items-center px-4 w-full">
+<div class="max-w-[1400px] w-full grid lg:grid-cols-2 gap-12 lg:gap-8 items-center pt-10 pb-20">
+<!-- Text Content -->
+<div class="flex flex-col gap-8 text-center lg:text-left order-2 lg:order-1 relative">
+<!-- Decorative glowing line -->
+<div class="hidden lg:block absolute -left-6 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-primary/50 to-transparent"></div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-center lg:justify-start gap-2 text-primary font-bold tracking-[0.2em] text-xs uppercase mb-2 animate-pulse">
+<span class="w-8 h-[2px] bg-primary"></span>
+                        High Performance Framework
+                    </div>
+<h1 class="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tighter text-white uppercase text-glow drop-shadow-2xl">
+                        Power In <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-slate-400">Every Grip</span>
+</h1>
+<p class="text-slate-400 text-lg md:text-xl font-light leading-relaxed max-w-lg mx-auto lg:mx-0 tracking-wide border-l-2 border-primary/30 pl-4 lg:pl-6 text-left">
+                        The ultimate framework for aquatic dominance. Built for precision, engineered for aggression. Control the abyss.
+                    </p>
+</div>
+<div class="flex flex-wrap gap-5 justify-center lg:justify-start mt-4">
+<button class="group relative overflow-hidden rounded px-8 py-4 bg-gradient-to-br from-[#ff2929] to-[#990a0a] text-white font-bold text-base tracking-widest uppercase hover:shadow-[0_0_30px_rgba(255,41,41,0.4)] transition-all duration-300 hover:scale-105 active:scale-95">
+<span class="relative z-10 flex items-center gap-2">
+                            Explore
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
+</span>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</button>
+<button class="group relative rounded px-8 py-4 bg-transparent border border-primary/50 text-white font-bold text-base tracking-widest uppercase hover:bg-primary/10 hover:border-primary hover:shadow-[0_0_20px_rgba(255,41,41,0.2)] transition-all duration-300 active:scale-95">
+<span class="relative z-10">Get Started</span>
+</button>
+</div>
+<!-- Stats / Trust Indicators -->
+<div class="flex items-center justify-center lg:justify-start gap-8 mt-8 opacity-60">
+<div class="flex flex-col">
+<span class="text-2xl font-bold text-white">99.9%</span>
+<span class="text-xs uppercase tracking-wider text-slate-400">Grip Strength</span>
+</div>
+<div class="w-[1px] h-8 bg-white/20"></div>
+<div class="flex flex-col">
+<span class="text-2xl font-bold text-white">50ms</span>
+<span class="text-xs uppercase tracking-wider text-slate-400">Reaction Time</span>
+</div>
+</div>
+</div>
+<!-- Hero Image / Visual -->
+<div class="relative order-1 lg:order-2 flex items-center justify-center h-[50vh] lg:h-auto perspective-1000">
+<!-- Background glow behind the claw -->
+<div class="absolute inset-0 bg-primary/20 blur-[100px] rounded-full transform scale-75 animate-pulse-glow z-0"></div>
+<!-- The Claw Image -->
+<div class="relative z-10 w-full max-w-[600px] aspect-square flex items-center justify-center animate-float">
+<!-- Replace with a more specific abstract shape if image is not desired, but user asked for image -->
+<div class="w-full h-full relative" style="filter: drop-shadow(0 0 30px rgba(255, 41, 41, 0.2));">
+<!-- Abstract representation of the claw using CSS/SVG since I cannot generate a real 3D render file. 
+                              However, I will use a high quality placeholder image with the correct description as requested. -->
+<img alt="Hyper-realistic metallic red robotic claw glowing with intense energy in deep water" class="w-full h-full object-contain mask-radial" data-alt="Hyper-realistic metallic red robotic claw glowing with intense energy in deep water" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn2eoR_Fa9_fLQYqz_BWMoGSTbLPOZRIFLQn8QF2q9ID8yu-4Awfeq3p_gsC1kCFwGEPKdi9tUm9fBrcY1vdJzbIr3qbzdmf4p4KS2tF7x3fsdDDqObS0EZoVFRd2h-znJ5H5dPqzJAsNvnioFI3yclKuy9MCEVLbbwO3_WhrxL7YQDcygEZ7vpaj-TkBo8M4Njj8xwzIeUzNrRlalRUplEn2Q05faR_NS7tl92vv0bp-ztPk0dQ1NZRReaef4UJYspulAXMFCizM" style="mask-image: radial-gradient(circle, black 60%, transparent 100%); -webkit-mask-image: radial-gradient(circle, black 60%, transparent 100%); mix-blend-mode: lighten;"/>
+<!-- Overlay gradient to tint the image red/metallic -->
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/40 to-transparent mix-blend-overlay pointer-events-none rounded-full"></div>
+</div>
+</div>
+<!-- Floating Tech Elements around visual -->
+<div class="absolute top-[20%] right-[10%] p-2 rounded border border-primary/30 bg-black/40 backdrop-blur-md hidden md:flex items-center gap-2 animate-bounce" style="animation-duration: 3s;">
+<div class="size-2 rounded-full bg-primary animate-ping"></div>
+<span class="text-[10px] uppercase tracking-widest text-primary font-bold">System Online</span>
+</div>
+<div class="absolute bottom-[20%] left-[5%] p-2 rounded border border-white/10 bg-black/40 backdrop-blur-md hidden md:flex flex-col gap-1 animate-float" style="animation-delay: 1s;">
+<div class="flex gap-1 items-end h-4 w-16">
+<div class="w-1 bg-primary/50 h-full animate-pulse"></div>
+<div class="w-1 bg-primary/80 h-[60%] animate-pulse" style="animation-delay: 0.1s"></div>
+<div class="w-1 bg-primary h-[80%] animate-pulse" style="animation-delay: 0.2s"></div>
+<div class="w-1 bg-primary/60 h-[40%] animate-pulse" style="animation-delay: 0.3s"></div>
+</div>
+<span class="text-[8px] uppercase tracking-widest text-slate-400">Analyzing Grip</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Area / Brand strip -->
+<footer class="relative z-10 w-full border-t border-white/5 bg-black/20 backdrop-blur-sm">
+<div class="max-w-[1400px] mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-6 opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
+<!-- Fake partner logos -->
+<div class="h-6 w-24 bg-white/20 rounded mask-logo" style="-webkit-mask: url('https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg') no-repeat center; mask: url('https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg') no-repeat center;"></div>
+<div class="h-6 w-24 bg-white/20 rounded mask-logo" style="-webkit-mask: url('https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg') no-repeat center; mask: url('https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg') no-repeat center;"></div>
+<div class="h-6 w-24 bg-white/20 rounded mask-logo" style="-webkit-mask: url('https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg') no-repeat center; mask: url('https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg') no-repeat center;"></div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs text-slate-500 uppercase tracking-widest">Connect</span>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg">public</span></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg">alternate_email</span></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-lg">share</span></a>
+</div>
+</div>
+</footer>
+</body></html>

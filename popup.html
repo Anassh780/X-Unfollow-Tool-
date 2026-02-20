@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X Remove Followers</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 320px;
+      min-height: 200px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(160deg, #0a0a0f 0%, #12121a 50%, #0d1117 100%);
+      color: #e6edf3;
+      padding: 24px;
+    }
+    .popup-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(29, 155, 240, 0.2);
+    }
+    .popup-brand svg {
+      width: 40px;
+      height: 40px;
+    }
+    .popup-brand h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .popup-free {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, rgba(35, 134, 54, 0.3) 0%, rgba(46, 160, 67, 0.2) 100%);
+      color: #3fb950;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      border: 1px solid rgba(63, 185, 80, 0.3);
+    }
+    .popup-free::before {
+      content: "✓";
+      font-weight: bold;
+    }
+    .popup-desc {
+      font-size: 13px;
+      color: #8b949e;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .popup-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .popup-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .popup-btn-primary {
+      background: linear-gradient(135deg, #1D9BF0 0%, #0d8bd9 100%);
+      color: #fff;
+    }
+    .popup-btn-primary:hover {
+      background: linear-gradient(135deg, #2aa3f5 0%, #1D9BF0 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(29, 155, 240, 0.4);
+    }
+    .popup-btn-secondary {
+      background: rgba(48, 54, 61, 0.6);
+      color: #e6edf3;
+      border: 1px solid #30363d;
+    }
+    .popup-btn-secondary:hover {
+      background: rgba(48, 54, 61, 0.9);
+      border-color: #1D9BF0;
+    }
+    .popup-footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(48, 54, 61, 0.6);
+      text-align: center;
+      font-size: 12px;
+      color: #6e7681;
+    }
+    .popup-footer strong {
+      color: #1D9BF0;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="popup-brand">
+    <svg viewBox="0 0 24 24" fill="#1D9BF0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    <h1>X Remove Followers</h1>
+  </div>
+  <div class="popup-free">This is free</div>
+  <p class="popup-desc">Manage your X followers. Bulk unfollow, filter inactives, detect bots, and more. Open X to get started.</p>
+  <div class="popup-btns">
+    <a href="https://x.com" target="_blank" class="popup-btn popup-btn-primary">Open X (Twitter)</a>
+    <a href="#" id="options-btn" class="popup-btn popup-btn-secondary">Options</a>
+  </div>
+  <div class="popup-footer">Made by <strong>Iron Heart</strong></div>
+  <script src="popup.js"></script>
+</body>
+</html>

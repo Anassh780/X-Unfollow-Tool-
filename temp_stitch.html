@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Transformers Cinematic Home Screen</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0a0c10", // Darker for cinematic feel
+                        "accent-red": "#e62e2d", // Decepticon Red
+                        "surface-dark": "#151921",
+                        "surface-light": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Space Grotesk", "sans-serif"]
+                    },
+                    backgroundImage: {
+                        'hex-pattern': "url(\"data:image/svg+xml,%3Csvg width='24' height='40' viewBox='0 0 24 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40c5.523 0 10-4.477 10-10V10C10 4.477 5.523 0 0 0h24c-5.523 0-10 4.477-10 10v20c0 5.523 5.523 10 10 10H0z' fill='%231f2937' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E\")",
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0c10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #282e39;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0d59f2;
+        }
+        
+        .clip-hex-button {
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+        }
+        
+        .clip-panel {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%);
+        }
+
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: #0d59f2;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 10px rgba(13, 89, 242, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased overflow-x-hidden">
+<div class="relative flex min-h-screen w-full flex-col group/design-root">
+<!-- Decorative background elements -->
+<div class="fixed inset-0 z-0 pointer-events-none opacity-20 bg-hex-pattern"></div>
+<div class="fixed top-0 left-0 w-full h-1 z-50 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+<div class="layout-container flex h-full grow flex-col z-10 relative">
+<!-- Navigation -->
+<header class="sticky top-0 z-40 w-full backdrop-blur-md bg-background-dark/80 border-b border-white/10">
+<div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-20">
+<!-- Logo Section -->
+<div class="flex items-center gap-4">
+<div class="text-primary animate-pulse">
+<span class="material-symbols-outlined !text-[40px]">smart_toy</span>
+</div>
+<h2 class="text-white text-2xl font-bold tracking-widest uppercase glow-text hidden sm:block">Transformers</h2>
+</div>
+<!-- Desktop Nav -->
+<div class="hidden md:flex items-center gap-10">
+<a class="text-slate-300 hover:text-white text-sm font-medium tracking-widest uppercase transition-colors relative group" href="#">
+                                Movies
+                                <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+</a>
+<a class="text-slate-300 hover:text-white text-sm font-medium tracking-widest uppercase transition-colors relative group" href="#">
+                                Characters
+                                <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+</a>
+<a class="text-slate-300 hover:text-white text-sm font-medium tracking-widest uppercase transition-colors relative group" href="#">
+                                Lore
+                                <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+</a>
+<a class="text-slate-300 hover:text-white text-sm font-medium tracking-widest uppercase transition-colors relative group" href="#">
+                                Merch
+                                <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+</a>
+</div>
+<!-- Right Actions -->
+<div class="flex items-center gap-6">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="clip-hex-button bg-primary/20 hover:bg-primary border border-primary/50 hover:border-primary text-primary hover:text-white px-6 py-2 text-sm font-bold tracking-widest uppercase transition-all duration-300">
+                                Sign In
+                            </button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col">
+<!-- Hero Section -->
+<section class="relative w-full h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+<!-- Hero Background Image -->
+<div class="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105 transition-transform duration-[20s] hover:scale-100" data-alt="Cinematic dark sci-fi metal texture with blue sparks and smoke" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDcXO-yU6iQnMKktUjr-ssMY5Dv76cMmCQ5d6S7ONeGJM9xLwevr-Aec_NAWIlw1iF5W6cHE2B5pYwOc_acuXu2mAkSeD5_1UtlC4ZFXpqJtdeeCMF3wchtV5A8ShFmrPcA5bTWJ_J108dyzmVyUYsII2VLeFE6B5BCqOPBZhUfESG3ntJ4OhXQ8DZ67gWPRCgM_HE7ZzmAgbAVauJMT_84DP1hiUhqqkmgCSdcZGXTNA4dnn48cdifPH0_GjWMFS8a3NFEsTDz6rNM');">
+</div>
+<!-- Overlay Gradients -->
+<div class="absolute inset-0 bg-gradient-to-b from-background-dark/60 via-background-dark/40 to-background-dark"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-background-dark/80 via-transparent to-background-dark/80"></div>
+<!-- Hero Content -->
+<div class="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center gap-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 border border-primary/30 rounded-full bg-primary/10 backdrop-blur-sm mb-4">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-xs font-medium text-primary tracking-widest uppercase">Incoming Transmission</span>
+</div>
+<h1 class="text-white text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-none uppercase drop-shadow-2xl">
+                            Fate of <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Two Worlds</span>
+</h1>
+<p class="text-slate-300 text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto leading-relaxed border-l-2 border-primary pl-6 text-left md:text-center md:border-l-0 md:pl-0">
+                            The battle for Cybertron has reached Earth. Will you stand with the Autobots to protect freedom, or join the Decepticons to conquer all?
+                        </p>
+<div class="flex flex-wrap items-center justify-center gap-6 mt-8">
+<button class="clip-hex-button relative group bg-primary text-white px-8 py-4 min-w-[200px] font-bold tracking-widest uppercase overflow-hidden">
+<span class="relative z-10 flex items-center justify-center gap-2">
+                                    Enter The Archive
+                                    <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</span>
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+</button>
+<button class="clip-hex-button relative group bg-transparent border border-white/20 text-white hover:border-primary/50 px-8 py-4 min-w-[200px] font-bold tracking-widest uppercase transition-all">
+<span class="relative z-10 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">play_circle</span>
+                                    Watch Trailer
+                                </span>
+<div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</button>
+</div>
+</div>
+<!-- Scroll Indicator -->
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
+<span class="text-[10px] tracking-[0.2em] uppercase text-white">Scroll to Explore</span>
+<span class="material-symbols-outlined text-primary">keyboard_double_arrow_down</span>
+</div>
+</section>
+<!-- Faction Selection Section -->
+<section class="py-20 px-4 md:px-8 relative bg-surface-dark border-y border-white/5">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div>
+<h2 class="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter mb-4">Choose Your <span class="text-slate-500">Side</span></h2>
+<p class="text-slate-400 max-w-lg">Select your allegiance to access classified faction data.</p>
+</div>
+<div class="h-[1px] flex-1 bg-gradient-to-r from-white/20 to-transparent mx-8 hidden md:block mb-4"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Autobot Card -->
+<div class="group relative h-[400px] overflow-hidden clip-panel cursor-pointer transition-transform hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Futuristic blue mechanic details representing Autobots" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCA1yc9VZc2g3GIJlzTjWrk8R4qSjS9qTDxBgo1H3SisNW_kJBsRO3ORkJgWPTqfXrUS1546IprmX-6YtrAnQWImAGb2fTVIst_yj1jx1408GO0Wq0-c2ViX0kZCvRj3w0I76dp57MIfhNBdoEdi_62q4drxULVTOpUrblW0YGBXCNj_LINZAUC1ASm3t_MRr8FtsEvYURYa3BJeYOfOOS38cx5ikfuCPL1IgZgW01bPuVUjpg3PEwJYADnppFay6OhisR_SrfG4dvt');">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/80 to-transparent opacity-90"></div>
+<div class="absolute inset-0 bg-primary/10 group-hover:bg-primary/20 transition-colors"></div>
+<div class="absolute bottom-0 left-0 w-full p-8 z-10">
+<div class="flex justify-between items-end border-b border-primary/30 pb-4 mb-4">
+<div>
+<h3 class="text-3xl font-bold text-white uppercase tracking-wide group-hover:text-primary transition-colors">Autobots</h3>
+<p class="text-primary text-xs tracking-[0.2em] uppercase mt-1">Guardians of Freedom</p>
+</div>
+<span class="material-symbols-outlined text-4xl text-primary opacity-50 group-hover:opacity-100 transition-opacity">shield</span>
+</div>
+<p class="text-slate-300 text-sm leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                        "Freedom is the right of all sentient beings." Join Optimus Prime and the Autobots in their fight to protect the universe.
+                                    </p>
+<span class="inline-flex items-center text-xs font-bold text-white uppercase tracking-widest gap-2">
+                                        Join Alliance <span class="material-symbols-outlined text-sm text-primary">arrow_forward</span>
+</span>
+</div>
+<!-- Decorative border -->
+<div class="absolute top-0 right-0 w-24 h-24 border-t-2 border-r-2 border-primary/30 rounded-tr-3xl"></div>
+</div>
+<!-- Decepticon Card -->
+<div class="group relative h-[400px] overflow-hidden clip-panel cursor-pointer transition-transform hover:-translate-y-1">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="Dark red mechanical texture representing Decepticons" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCvcvDo2EFHeA5F-RJoQsxFXiMNzXGaG87vcsANcobkw0ZHEDGPT6p9mkiABCJDp5Agr25RT29VuchqqLUWdieRXPGNlWykL3mvZT_W4bLaRnGeTl5P_CB0rnibIO_VwZbqNizIJHYoK3xD57uV9gTwuomrCDbA95uDuPNmKFqtnv5Moye-tU7SPHr2Q5h4mGHyr7URXYHJ8T7kN6RV08YFDusVWEBRHZGjcrTZYIGbPIZzN7OTfF1Z5t1EW5ISbr5Pb-GHc748JdU1');">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/80 to-transparent opacity-90"></div>
+<div class="absolute inset-0 bg-accent-red/10 group-hover:bg-accent-red/20 transition-colors"></div>
+<div class="absolute bottom-0 left-0 w-full p-8 z-10">
+<div class="flex justify-between items-end border-b border-accent-red/30 pb-4 mb-4">
+<div>
+<h3 class="text-3xl font-bold text-white uppercase tracking-wide group-hover:text-accent-red transition-colors">Decepticons</h3>
+<p class="text-accent-red text-xs tracking-[0.2em] uppercase mt-1">Conquerors of Worlds</p>
+</div>
+<span class="material-symbols-outlined text-4xl text-accent-red opacity-50 group-hover:opacity-100 transition-opacity">change_history</span>
+</div>
+<p class="text-slate-300 text-sm leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                        "Peace through tyranny." Serve Lord Megatron and crush any who stand in the way of Cybertronian supremacy.
+                                    </p>
+<span class="inline-flex items-center text-xs font-bold text-white uppercase tracking-widest gap-2">
+                                        Join Alliance <span class="material-symbols-outlined text-sm text-accent-red">arrow_forward</span>
+</span>
+</div>
+<!-- Decorative border -->
+<div class="absolute top-0 right-0 w-24 h-24 border-t-2 border-r-2 border-accent-red/30 rounded-tr-3xl"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Latest Transmissions (Grid) -->
+<section class="py-20 px-4 md:px-8 bg-background-dark relative">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+<div class="max-w-7xl mx-auto">
+<div class="flex items-center gap-4 mb-10">
+<span class="material-symbols-outlined text-primary text-2xl animate-spin-slow">hub</span>
+<h2 class="text-2xl font-bold text-white uppercase tracking-wider">Latest Transmissions</h2>
+<div class="h-[1px] bg-white/10 flex-1 ml-4"></div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<article class="bg-surface-dark border border-white/5 hover:border-primary/50 transition-colors group p-4 rounded flex flex-col h-full">
+<div class="relative aspect-video w-full overflow-hidden rounded bg-slate-800 mb-4">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Abstract metallic texture for Rise of Beasts" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB47Ljth_3z8GXkDuDsIBRNr6yR4mBzpgJwlzB1GBBrdhyycyDKAbyD_6CeQdMxIXeQtzVxezO9su-6Alx6qnmUQSVZMaF_33gK82KF9V_Jchw2z4XE76vL0HeS-01SVqHYaOLYGt715XEkXOnpkH-RrJMUx3yFElzLihsD3hxxLgsPLTdWktwzFvNG3GB2w4qe22TIxgJn5cQoiaw1-2qWIAtDRvtuyej0o1O4AcjUG52NXYkR7NSOLXGXGzMbJ-WgB-m7RXVmW3P5');">
+</div>
+<div class="absolute top-2 right-2 bg-primary/90 text-white text-[10px] font-bold px-2 py-1 uppercase rounded-sm">Movie News</div>
+</div>
+<h3 class="text-white text-lg font-bold leading-tight mb-2 group-hover:text-primary transition-colors uppercase">Rise of the Beasts</h3>
+<p class="text-slate-400 text-sm line-clamp-2 mb-4 flex-1">
+                                    Analysis of the latest trailer footage reveals hidden Maximals signatures.
+                                </p>
+<a class="inline-flex items-center text-xs font-bold text-slate-300 hover:text-white uppercase tracking-wider gap-1" href="#">
+                                    Read Data <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-dark border border-white/5 hover:border-primary/50 transition-colors group p-4 rounded flex flex-col h-full">
+<div class="relative aspect-video w-full overflow-hidden rounded bg-slate-800 mb-4">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Retro 80s grid background for Generation One" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBr0iKNoQ9IbdixD6_APHg31Qj1ATRMcovgkKn1gZY0gNk9hTfR-G-NyN-XdAAHIzBk-XTc7__NwSe8wsnl_o2XH4k6s6W_drmEeYgGM0ycxbZmDEQx-8C4V-8_MuqWpx2RcGpOnzOjXonPEryLxdMeKekFtCmHLZ_yT66FrSUdDi7O2ZMGOItSzV7I5iIML0d5p8tvQVmjW7NBmwmA1kYbWwGHZlISPzQzZYZgYlFLbovr5y57_JHRQMmJ7UkfxTRtQapqToH9wLC-');">
+</div>
+<div class="absolute top-2 right-2 bg-purple-600/90 text-white text-[10px] font-bold px-2 py-1 uppercase rounded-sm">Remaster</div>
+</div>
+<h3 class="text-white text-lg font-bold leading-tight mb-2 group-hover:text-primary transition-colors uppercase">G1 Remastered</h3>
+<p class="text-slate-400 text-sm line-clamp-2 mb-4 flex-1">
+                                    Experience the classic battles in 4K resolution with enhanced audio tracks.
+                                </p>
+<a class="inline-flex items-center text-xs font-bold text-slate-300 hover:text-white uppercase tracking-wider gap-1" href="#">
+                                    Read Data <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-dark border border-white/5 hover:border-primary/50 transition-colors group p-4 rounded flex flex-col h-full">
+<div class="relative aspect-video w-full overflow-hidden rounded bg-slate-800 mb-4">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Neon blue cybernetic background for Cyberverse" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD7OCLydu1sXsZyI0ZgEpw6PpAybwZgx97g0TTnwj5HaMf1PXWp1SNlliWn7wbkVxkUzQMZR57Eq4QVf9RoXYU57v3mTANjRftvU6_vph5dQqWcRhcxGKHlakYEUy-5ZwrtdtqxpysbJv6xenBiX-7GYs0okEDs2bT74KKqVqvxwph5tQx0dkKLjCZdKpPkY9YJmrhIjz5wBb0Ie7y1hM4U2aeiczibacEBQBs0u25mnR88MaKOt7TSBkFpTz92T_wuxGz1H4YoE3Vi');">
+</div>
+<div class="absolute top-2 right-2 bg-green-600/90 text-white text-[10px] font-bold px-2 py-1 uppercase rounded-sm">Series</div>
+</div>
+<h3 class="text-white text-lg font-bold leading-tight mb-2 group-hover:text-primary transition-colors uppercase">Cyberverse S4</h3>
+<p class="text-slate-400 text-sm line-clamp-2 mb-4 flex-1">
+                                    The final chapter begins. Windblade's journey comes to a dramatic conclusion.
+                                </p>
+<a class="inline-flex items-center text-xs font-bold text-slate-300 hover:text-white uppercase tracking-wider gap-1" href="#">
+                                    Read Data <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</article>
+<!-- Card 4 -->
+<article class="bg-surface-dark border border-white/5 hover:border-primary/50 transition-colors group p-4 rounded flex flex-col h-full">
+<div class="relative aspect-video w-full overflow-hidden rounded bg-slate-800 mb-4">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Toy figure closeup photography for Legacy Collection" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBOjLy5L1yFSot0pmWAfvse895_Ka6UwrzgFvymTsda1kVcmGY0kexztXeFDZf9WgSSPl5LpxhFq7P9hvEt9yRm6kG4iMT1xMjWf03u1UGPnslTm341WLVEiztkK6HTAz51rhl8DVyuHUx_Ir5Xisc2NpVb8uNhO_71W2vzJaCn_tcry6ZIdlfLqndQGkVjiBfnCX-Sxu0cmuIW_TSmvj2Z6VYm8GhrYnE-ZiplA9MQQALTb9-X1fdYxYSi9l89ba4Jv76G2LuCzzvw');">
+</div>
+<div class="absolute top-2 right-2 bg-orange-600/90 text-white text-[10px] font-bold px-2 py-1 uppercase rounded-sm">Merch</div>
+</div>
+<h3 class="text-white text-lg font-bold leading-tight mb-2 group-hover:text-primary transition-colors uppercase">Legacy Collection</h3>
+<p class="text-slate-400 text-sm line-clamp-2 mb-4 flex-1">
+                                    New figures revealed including Commander Class Motormaster and Titan Class Metroplex.
+                                </p>
+<a class="inline-flex items-center text-xs font-bold text-slate-300 hover:text-white uppercase tracking-wider gap-1" href="#">
+                                    Read Data <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</article>
+</div>
+</div>
+</section>
+<!-- Newsletter / Footer CTA -->
+<section class="py-16 px-4 bg-surface-dark border-t border-white/5">
+<div class="max-w-4xl mx-auto text-center">
+<span class="material-symbols-outlined text-5xl text-primary mb-4 opacity-80">mark_email_unread</span>
+<h2 class="text-2xl md:text-3xl font-bold text-white uppercase tracking-wide mb-4">Join the Cybertronian Network</h2>
+<p class="text-slate-400 mb-8 max-w-lg mx-auto">Subscribe for encrypted updates, exclusive merchandise drops, and faction alerts.</p>
+<form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+<input class="flex-1 bg-background-dark border border-white/10 text-white placeholder-slate-600 px-6 py-4 rounded-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-mono text-sm uppercase" placeholder="ENTER COMM LINK (EMAIL)" type="email"/>
+<button class="bg-white text-background-dark px-8 py-4 font-bold uppercase tracking-widest hover:bg-slate-200 transition-colors rounded-sm" type="button">
+                                Subscribe
+                            </button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-background-dark border-t border-white/10 pt-16 pb-8 px-4">
+<div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+<div>
+<h4 class="text-white font-bold uppercase tracking-widest mb-6 text-sm">Universe</h4>
+<ul class="space-y-3">
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Timeline</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Planets</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Technology</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Comics</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold uppercase tracking-widest mb-6 text-sm">Media</h4>
+<ul class="space-y-3">
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Films</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">TV Series</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Games</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Soundtracks</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold uppercase tracking-widest mb-6 text-sm">Community</h4>
+<ul class="space-y-3">
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Forums</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Events</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Fan Art</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Cosplay</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold uppercase tracking-widest mb-6 text-sm">Legal</h4>
+<ul class="space-y-3">
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Cookie Settings</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2 text-slate-600">
+<span class="material-symbols-outlined text-lg">smart_toy</span>
+<p class="text-xs uppercase tracking-wider">© 2024 Transformers Archive. All rights reserved.</p>
+</div>
+<div class="flex gap-4">
+<!-- Social Icons (using material symbols as placeholders for social logos) -->
+<a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-dark text-slate-400 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-sm">public</span>
+</a>
+<a class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-dark text-slate-400 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-sm">share</span>
+</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>
