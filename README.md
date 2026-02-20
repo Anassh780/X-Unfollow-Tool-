@@ -9,10 +9,11 @@ A powerful Chrome extension to manage your X (formerly Twitter) followers with a
 - **Lightweight & Fast**: Optimized to run smoothly without lagging your browser.
 
 ## Installation for Development
-1. Clone this repository or download the source code.
-2. Open Google Chrome and navigate to `chrome://extensions/`.
-3. Enable **Developer mode** in the top right corner.
-4. Click **Load unpacked** and select the directory containing this extension.
+1. Unzip stats & background in same folder 
+2. Clone this repository or download the source code.
+3. Open Google Chrome and navigate to `chrome://extensions/`.
+4. Enable **Developer mode** in the top right corner.
+5. Click **Load unpacked** and select the directory containing this extension.
 
 ## Usage
 - Pin the extension to your toolbar.
@@ -27,3 +28,4 @@ A powerful Chrome extension to manage your X (formerly Twitter) followers with a
 
 ## License
 MIT
+
