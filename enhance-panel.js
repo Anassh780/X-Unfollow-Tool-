@@ -46,22 +46,43 @@
     }
     .x-theme-btn.active { box-shadow: 0 0 0 2px currentColor; }
 
-    /* VIP Premium Transitions */
+    /* Refined VIP Premium Transitions - Refined for "Smooth & Light" feel */
     @keyframes vip-modal-in {
-      0% { opacity: 0; transform: scale(0.95) translateY(20px); filter: blur(8px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+      0% { 
+        opacity: 0; 
+        transform: scale(0.985) translateY(12px); 
+        filter: blur(5px); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: scale(1) translateY(0); 
+        filter: blur(0); 
+      }
     }
     @keyframes vip-modal-out {
-      0% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
-      100% { opacity: 0; transform: scale(0.95) translateY(20px); filter: blur(8px); }
+      0% { 
+        opacity: 1; 
+        transform: scale(1) translateY(0); 
+        filter: blur(0); 
+      }
+      100% { 
+        opacity: 0; 
+        transform: scale(0.985) translateY(12px); 
+        filter: blur(5px); 
+      }
     }
     [data-x-unfollower-panel] .ant-modal.ant-zoom-appear,
     [data-x-unfollower-panel] .ant-modal.ant-zoom-enter {
-      animation: vip-modal-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+      animation: vip-modal-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
       transform-origin: center center;
     }
     [data-x-unfollower-panel] .ant-modal.ant-zoom-leave {
-      animation: vip-modal-out 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+      animation: vip-modal-out 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    }
+
+    [data-x-unfollower-panel] .ant-modal-wrap { 
+      backdrop-filter: none !important; 
+      background: transparent !important;
     }
   `;
 
@@ -527,7 +548,7 @@
                  <div class="glass-panel" style="padding: 8px 16px; display: flex; align-items: center; gap: 12px;">
                     <div style="display: flex; flex-direction: column;">
                         <span style="color: #64748b; font-size: 10px; font-weight: 600; text-transform: uppercase;">BTC Price</span>
-                        <span style="color: white; font-weight: 700;">$64,230.15</span>
+                        <span class="x-btc-price-val" style="color: white; font-weight: 700;">$64,230.15</span>
                     </div>
                     <span style="color: #4ade80; font-size: 12px; font-weight: 600;">+5.2%</span>
                  </div>
@@ -823,6 +844,37 @@
     openclaw: { label: '🦞 OpenClaw', color: '#dc2626' }
   };
 
+  var FAST_CSS = `
+    /* Minimal Fast CSS to fix white flash and premium backdrop */
+    #x-unfollower-fast-css { display: none; }
+    .x-enhanced[data-x-unfollower-panel] .ant-modal-content { background: #0a0a0a !important; color: white !important; }
+    .x-enhanced[data-x-unfollower-panel]:not(.ant-modal-root-hidden) .ant-modal-mask { 
+      background: rgba(0,0,0,0.65) !important; 
+      backdrop-filter: blur(4px) !important;
+    }
+  `;
+
+  var BTC_PRICE = '$64,230.15';
+
+  function fetchBtcPrice() {
+    try {
+      fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT')
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.price) {
+            BTC_PRICE = '$' + parseFloat(data.price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            updateBtcDisplays();
+          }
+        }).catch(() => { });
+    } catch (e) { }
+  }
+
+  function updateBtcDisplays() {
+    document.querySelectorAll('.x-btc-price-val').forEach(el => {
+      el.textContent = BTC_PRICE;
+    });
+  }
+
   function getTheme(cb) {
     try {
       if (chrome.storage && chrome.storage.local) {
@@ -845,8 +897,23 @@
     if (cb) cb();
   }
 
+  // Monitor theme changes for instant update
+  if (chrome.storage && chrome.storage.onChanged) {
+    chrome.storage.onChanged.addListener(function (changes) {
+      if (changes[STORAGE_KEY]) {
+        enhancePanel(changes[STORAGE_KEY].newValue);
+      }
+    });
+  }
+
   function addThemePicker(modal, currentTheme) {
-    if (modal.querySelector('.x-theme-picker')) return;
+    if (modal.querySelector('.x-theme-picker')) {
+      // Update active state in picker
+      modal.querySelectorAll('.x-theme-btn').forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-t') === currentTheme);
+      });
+      return;
+    }
     var header = modal.querySelector('.ant-modal-header');
     if (!header) return;
     var picker = document.createElement('div');
@@ -855,19 +922,11 @@
       var btn = document.createElement('button');
       btn.className = 'x-theme-btn' + (key === currentTheme ? ' active' : '');
       btn.type = 'button';
+      btn.setAttribute('data-t', key);
       btn.textContent = THEME_BTNS[key].label;
       btn.style.color = THEME_BTNS[key].color;
       btn.style.borderColor = THEME_BTNS[key].color;
-      btn.onclick = function () {
-        setTheme(key, function () {
-          var wrap = modal.closest('.ant-modal-wrap');
-          wrap.setAttribute('data-theme', key);
-          modal.setAttribute('data-theme', key);
-          picker.querySelectorAll('.x-theme-btn').forEach(function (b, i) {
-            b.classList.toggle('active', ['transformers', 'bitcoin', 'openclaw'][i] === key);
-          });
-        });
-      };
+      btn.onclick = function () { setTheme(key); };
       picker.appendChild(btn);
     });
     header.appendChild(picker);
@@ -889,34 +948,30 @@
     panel.querySelectorAll('.bot-badge, .insights-card').forEach(function (el) { el.remove(); });
   }
 
-  function enhancePanel() {
+  function enhancePanel(forcedTheme) {
     var modals = document.querySelectorAll('.ant-modal');
     modals.forEach(function (modal) {
-      var titleEl = modal.querySelector('.ant-modal-title');
-      var titleText = (titleEl || {}).textContent || '';
-      if (titleText.indexOf('Unfollower') === -1 && titleText.indexOf('crypto_apha') === -1 && titleText.indexOf('Superextensions') === -1) return;
-
-      // --- Rebranding ---
-      if (titleEl && !titleEl.getAttribute('data-rebranded')) {
-        titleEl.innerHTML = 'Open X Follower by <a href="https://x.com/crypto_apha" target="_blank" style="color: inherit; text-decoration: underline;">@crypto_apha</a>';
-        titleEl.setAttribute('data-rebranded', 'true');
+      var title = (modal.querySelector('.ant-modal-title') || {}).textContent || '';
+      if (title.indexOf('Unfollower') === -1 && title.indexOf('crypto_apha') === -1) return;
+      var root = modal.closest('.ant-modal-root');
+      if (root) {
+        root.classList.add('x-enhanced');
+        root.setAttribute('data-x-unfollower-panel', '1');
       }
 
-      var wrap = modal.closest('.ant-modal-wrap');
+      var modalWrap = modal.closest('.ant-modal-wrap');
 
-      // Initialize only once per modal
+      // Initialize only once per modal attributes
       if (modal.getAttribute('data-x-unfollower-panel') !== '1') {
         modal.setAttribute('data-x-unfollower-panel', '1');
-        modal.setAttribute('data-theme', DEFAULT_THEME);
-        if (wrap) wrap.setAttribute('data-x-unfollower-panel', '1');
-        if (wrap) wrap.setAttribute('data-theme', DEFAULT_THEME);
+        if (modalWrap) modalWrap.setAttribute('data-x-unfollower-panel', '1');
       }
 
-      getTheme(function (theme) {
+      function apply(theme) {
         // Theme Attribute Update
         if (modal.getAttribute('data-theme') !== theme) {
           modal.setAttribute('data-theme', theme);
-          if (wrap) wrap.setAttribute('data-theme', theme);
+          if (modalWrap) modalWrap.setAttribute('data-theme', theme);
         }
 
         var body = modal.querySelector('.ant-modal-body');
@@ -932,10 +987,7 @@
           while (source.firstChild) {
             fragment.appendChild(source.firstChild);
           }
-          // If we took from a root, we need to clear the body to remove the old shell
-          if (existingRoot) {
-            body.innerHTML = '';
-          }
+          if (existingRoot) { body.innerHTML = ''; }
           return fragment;
         }
 
@@ -961,26 +1013,27 @@
             var placeholder = body.querySelector('#stitch-openclaw-functional-ui-root');
             if (placeholder) placeholder.appendChild(ui);
           }
-        } else {
-          // Unwrap if wrapped
-          var existingRoot = body.querySelector('#stitch-functional-ui-root') ||
-            body.querySelector('#stitch-bitcoin-functional-ui-root') ||
-            body.querySelector('#stitch-openclaw-functional-ui-root');
-          if (existingRoot) {
-            var ui = getFunctionalUI();
-            body.innerHTML = '';
-            body.appendChild(ui);
-          }
         }
 
+        // Always update BTC price display if present
+        updateBtcDisplays();
         addThemePicker(modal, theme);
-      });
-      addRefreshButton(modal);
-      removeBadges(modal);
+        addRefreshButton(modal);
+        removeBadges(modal);
+      }
+
+      if (forcedTheme) apply(forcedTheme);
+      else getTheme(apply);
     });
   }
 
   function injectStyles() {
+    if (!document.getElementById('x-unfollower-fast-css')) {
+      var style = document.createElement('style');
+      style.id = 'x-unfollower-fast-css';
+      style.textContent = FAST_CSS;
+      (document.head || document.documentElement).appendChild(style);
+    }
     if (document.getElementById('x-unfollower-enhance-css')) return;
     var style = document.createElement('style');
     style.id = 'x-unfollower-enhance-css';
@@ -988,44 +1041,31 @@
     (document.head || document.documentElement).appendChild(style);
   }
 
-  function run() {
-    try {
-      injectStyles();
-      enhancePanel();
-    } catch (e) { }
-  }
-
-  if (typeof document !== 'undefined' && !window.frameElement) {
+  // Main entry point using MutationObserver for efficiency and speed
+  function init() {
     injectStyles();
+    fetchBtcPrice();
+    setInterval(fetchBtcPrice, 60000); // Update price every minute
 
-    // Initial run
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', run);
-    } else {
-      run();
-    }
-
-    // Use MutationObserver for ultra-smooth, lightweight updates
-    // instead of a heavy setInterval loop
     var observer = new MutationObserver(function (mutations) {
+      var needsEnhance = false;
       for (var i = 0; i < mutations.length; i++) {
-        if (mutations[i].addedNodes.length > 0) {
-          // Only trigger if a modal might have been added
-          var hasNewNodes = Array.from(mutations[i].addedNodes).some(function (node) {
-            return node.nodeType === 1 && (
-              node.classList.contains('ant-modal-root') ||
-              node.classList.contains('ant-modal-wrap') ||
-              node.querySelector('.ant-modal')
-            );
-          });
-          if (hasNewNodes) {
-            setTimeout(run, 50); // slight debounce
-            break;
-          }
+        if (mutations[i].addedNodes.length) {
+          needsEnhance = true;
+          break;
         }
       }
+      if (needsEnhance) enhancePanel();
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
+
+    // Immediate check
+    enhancePanel();
+  }
+
+  if (typeof document !== 'undefined' && !window.frameElement) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
   }
 })();
